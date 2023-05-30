@@ -1,0 +1,10 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://bpums1s2mlmcw"]
+
+[ext_resource type="FontFile" uid="uid://ct3q6nxnusj1b" path="res://MobileRPG Resources/PixelRPG.ttf" id="1_o4olo"]
+
+[resource]
+base_font = ExtResource("1_o4olo")
+opentype_features = {
+1667329140: 0
+}
+spacing_bottom = -2

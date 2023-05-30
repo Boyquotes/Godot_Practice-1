@@ -1,0 +1,210 @@
+[gd_scene load_steps=10 format=3 uid="uid://de2xoh0l4waqv"]
+
+[ext_resource type="Script" path="res://Battle.gd" id="1_6fqjt"]
+[ext_resource type="Script" path="res://PlayerStats.gd" id="2_0bt8n"]
+[ext_resource type="Texture2D" uid="uid://c4n1yvlet4x54" path="res://MobileRPG Resources/Images/Dungeon.png" id="2_6rn1j"]
+[ext_resource type="PackedScene" uid="uid://230twttfppue" path="res://Enemy.tscn" id="3_4ravs"]
+[ext_resource type="Texture2D" uid="uid://bu1rjxp04hloo" path="res://MobileRPG Resources/Images/Mobile RPG Mockup.png" id="5_q7fi3"]
+[ext_resource type="Script" path="res://StatsPanel.gd" id="5_r8o1q"]
+
+[sub_resource type="Animation" id="Animation_glnpu"]
+resource_name = "Damage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(5, 4), Vector2(2, 5), Vector2(8, 4), Vector2(2, 3), Vector2(4, 5), Vector2(5, 4), Vector2(6, 3), Vector2(5, 4), Vector2(5, 4), Vector2(5, 4), Vector2(5, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_ftgls"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, 4)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_drfk6"]
+_data = {
+"Damage": SubResource("Animation_glnpu"),
+"RESET": SubResource("Animation_ftgls")
+}
+
+[node name="Battle" type="Node"]
+script = ExtResource("1_6fqjt")
+
+[node name="PlayerStats" type="Node" parent="."]
+script = ExtResource("2_0bt8n")
+
+[node name="Dungeon" type="Sprite2D" parent="."]
+position = Vector2(45, 80)
+texture = ExtResource("2_6rn1j")
+
+[node name="Enemy" parent="." instance=ExtResource("3_4ravs")]
+position = Vector2(46.9948, 32.4697)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GridContainer" type="GridContainer" parent="UI"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 73.0
+offset_right = 82.0
+offset_bottom = 103.0
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 3
+columns = 2
+
+[node name="SwordButton" type="Button" parent="UI/GridContainer"]
+custom_minimum_size = Vector2(32, 13)
+layout_mode = 2
+text = "SWORD"
+
+[node name="HealButton" type="Button" parent="UI/GridContainer"]
+custom_minimum_size = Vector2(32, 13)
+layout_mode = 2
+text = "HEAL"
+
+[node name="BlockButton" type="Button" parent="UI/GridContainer"]
+custom_minimum_size = Vector2(32, 13)
+layout_mode = 2
+text = "BLOCK"
+
+[node name="EmptyButton1" type="Button" parent="UI/GridContainer"]
+custom_minimum_size = Vector2(32, 13)
+layout_mode = 2
+
+[node name="EmptyButton2" type="Button" parent="UI/GridContainer"]
+custom_minimum_size = Vector2(32, 13)
+layout_mode = 2
+
+[node name="EmptyButton3" type="Button" parent="UI/GridContainer"]
+custom_minimum_size = Vector2(32, 13)
+layout_mode = 2
+
+[node name="EmptyButton4" type="Button" parent="UI/GridContainer"]
+custom_minimum_size = Vector2(32, 13)
+layout_mode = 2
+
+[node name="EmptyButton5" type="Button" parent="UI/GridContainer"]
+custom_minimum_size = Vector2(32, 13)
+layout_mode = 2
+
+[node name="TextPanel" type="Panel" parent="UI"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 137.0
+offset_right = 92.0
+offset_bottom = 161.0
+
+[node name="OutputText" type="Label" parent="UI/TextPanel"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 90.0
+offset_bottom = 21.0
+text = "Lorem Ipsum"
+
+[node name="StatsPanel" type="Panel" parent="UI"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 52.0
+offset_right = 87.0
+offset_bottom = 70.0
+pivot_offset = Vector2(42, 9)
+script = ExtResource("5_r8o1q")
+
+[node name="HPLabelNum" type="Label" parent="UI/StatsPanel"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 22.0
+offset_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/StatsPanel/HPLabelNum"]
+libraries = {
+"": SubResource("AnimationLibrary_drfk6")
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/StatsPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -8.0
+offset_right = 41.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HPLabel" type="Label" parent="UI/StatsPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "HP
+
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="APLabel" type="Label" parent="UI/StatsPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "AP
+99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MPLabel" type="Label" parent="UI/StatsPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "MP
+99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MobileRpgMockup" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.196078)
+position = Vector2(45, 80)
+texture = ExtResource("5_q7fi3")
+metadata/_edit_lock_ = true
+
+[connection signal="end_turn" from="." to="Enemy" method="_on_battle_end_turn"]
+[connection signal="ap_changed" from="PlayerStats" to="UI/StatsPanel" method="_on_player_stats_ap_changed"]
+[connection signal="hp_changed" from="PlayerStats" to="UI/StatsPanel" method="_on_player_stats_hp_changed"]
+[connection signal="mp_changed" from="PlayerStats" to="UI/StatsPanel" method="_on_player_stats_mp_changed"]
+[connection signal="attack" from="Enemy" to="PlayerStats" method="_on_enemy_attack"]
+[connection signal="died" from="Enemy" to="." method="_on_enemy_died"]
+[connection signal="end_turn" from="Enemy" to="." method="_on_enemy_end_turn"]
+[connection signal="pressed" from="UI/GridContainer/SwordButton" to="." method="_on_sword_button_pressed"]
+[connection signal="pressed" from="UI/GridContainer/HealButton" to="." method="_on_heal_button_pressed"]
+[connection signal="pressed" from="UI/GridContainer/BlockButton" to="." method="_on_block_button_pressed"]
+[connection signal="labels_ready" from="UI/StatsPanel" to="PlayerStats" method="_on_stats_panel_labels_ready"]

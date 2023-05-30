@@ -1,0 +1,17 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://c014ddt07btvq"]
+
+[ext_resource type="FontVariation" uid="uid://bpums1s2mlmcw" path="res://Engine Resources/DefaultFont.tres" id="1_um8dc"]
+[ext_resource type="StyleBox" uid="uid://b330o4x1iytva" path="res://Engine Resources/Styles/ButtonHover.tres" id="1_xosdx"]
+[ext_resource type="StyleBox" uid="uid://dv2tfyvm68xcu" path="res://Engine Resources/Styles/ButtonIdle.tres" id="2_xyf15"]
+[ext_resource type="StyleBox" uid="uid://c5q1bsdixadwj" path="res://Engine Resources/Styles/ButtonPressed.tres" id="3_bb3dx"]
+[ext_resource type="StyleBox" uid="uid://bu0p6kw2bmwbq" path="res://Engine Resources/Styles/Panel.tres" id="4_yv51k"]
+
+[resource]
+default_font = ExtResource("1_um8dc")
+default_font_size = 6
+/colors/Default = Color(1, 1, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/styles/hover = ExtResource("1_xosdx")
+Button/styles/normal = ExtResource("2_xyf15")
+Button/styles/pressed = ExtResource("3_bb3dx")
+Panel/styles/panel = ExtResource("4_yv51k")

@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://bu0p6kw2bmwbq"]
+
+[ext_resource type="Texture2D" uid="uid://d3eh2n82a0qc3" path="res://MobileRPG Resources/Images/Panel9Slice.png" id="1_bqkgb"]
+
+[resource]
+texture = ExtResource("1_bqkgb")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
