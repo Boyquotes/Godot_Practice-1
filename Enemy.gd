@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var hpLabel = $HPLabel
 @onready var animationPlayer = $AnimationPlayer
+@onready var audioPlayer = $AudioStreamPlayer2D
 
 @export var attack_damage = 4
 @export var impact_timestamp = 0.6
@@ -36,6 +37,7 @@ func _on_battle_end_turn():
 		await animationPlayer.animation_finished
 	animationPlayer.queue("Attack")
 	await get_tree().create_timer(impact_timestamp).timeout
+	audioPlayer.play()
 	attack.emit(attack_damage)
 	await animationPlayer.animation_finished
 	end_turn.emit()

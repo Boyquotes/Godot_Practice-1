@@ -1,13 +1,27 @@
 extends Node
 
+enum hp_change_types {
+	DAMAGE,
+	BLOCKED,
+	HEAL
+}
+
 @export_group("Stats")
 @export var max_hp = 25
 var hp = max_hp:
 	set(value):
-		var damage = value < hp
+		var type
+		if (value < hp):
+			if (is_blocking):
+				type = hp_change_types.BLOCKED
+			else:
+				type = hp_change_types.DAMAGE
+		else:
+			type = hp_change_types.HEAL
+		
 		hp = clamp(value, 0, max_hp)
-		hp_changed.emit(hp, damage)
-signal hp_changed(value, damage)
+		hp_changed.emit(hp, type)
+signal hp_changed(value, type)
 
 @export var max_ap = 3
 var ap = max_ap:

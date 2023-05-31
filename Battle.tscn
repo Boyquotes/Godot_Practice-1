@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://de2xoh0l4waqv"]
+[gd_scene load_steps=13 format=3 uid="uid://de2xoh0l4waqv"]
 
 [ext_resource type="Script" path="res://Battle.gd" id="1_6fqjt"]
 [ext_resource type="Script" path="res://PlayerStats.gd" id="2_0bt8n"]
 [ext_resource type="Texture2D" uid="uid://c4n1yvlet4x54" path="res://MobileRPG Resources/Images/Dungeon.png" id="2_6rn1j"]
 [ext_resource type="PackedScene" uid="uid://230twttfppue" path="res://Enemy.tscn" id="3_4ravs"]
+[ext_resource type="AudioStream" uid="uid://c3f28ldy53vum" path="res://MobileRPG Resources/SwordHit.mp3" id="3_44b6k"]
 [ext_resource type="Texture2D" uid="uid://bu1rjxp04hloo" path="res://MobileRPG Resources/Images/Mobile RPG Mockup.png" id="5_q7fi3"]
 [ext_resource type="Script" path="res://StatsPanel.gd" id="5_r8o1q"]
 
@@ -21,6 +22,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2(5, 4), Vector2(2, 5), Vector2(8, 4), Vector2(2, 3), Vector2(4, 5), Vector2(5, 4), Vector2(6, 3), Vector2(5, 4), Vector2(5, 4), Vector2(5, 4), Vector2(5, 4)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 0.0156863, 0, 1), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_ftgls"]
 length = 0.001
@@ -36,10 +49,66 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(5, 4)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8c01c"]
+resource_name = "Heal"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 1, 0, 1), Color(0, 1, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mp4cu"]
+resource_name = "Blocked_Damage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(5, 4), Vector2(2, 5), Vector2(8, 4), Vector2(2, 3), Vector2(4, 5), Vector2(5, 4), Vector2(6, 3), Vector2(5, 4), Vector2(5, 4), Vector2(5, 4), Vector2(5, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.301961, 0.301961, 1), Color(1, 0.301961, 0.301961, 1), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_drfk6"]
 _data = {
+"Blocked_Damage": SubResource("Animation_mp4cu"),
 "Damage": SubResource("Animation_glnpu"),
+"Heal": SubResource("Animation_8c01c"),
 "RESET": SubResource("Animation_ftgls")
 }
 
@@ -48,6 +117,9 @@ script = ExtResource("1_6fqjt")
 
 [node name="PlayerStats" type="Node" parent="."]
 script = ExtResource("2_0bt8n")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_44b6k")
 
 [node name="Dungeon" type="Sprite2D" parent="."]
 position = Vector2(45, 80)
@@ -88,22 +160,27 @@ layout_mode = 2
 text = "BLOCK"
 
 [node name="EmptyButton1" type="Button" parent="UI/GridContainer"]
+visible = false
 custom_minimum_size = Vector2(32, 13)
 layout_mode = 2
 
 [node name="EmptyButton2" type="Button" parent="UI/GridContainer"]
+visible = false
 custom_minimum_size = Vector2(32, 13)
 layout_mode = 2
 
 [node name="EmptyButton3" type="Button" parent="UI/GridContainer"]
+visible = false
 custom_minimum_size = Vector2(32, 13)
 layout_mode = 2
 
 [node name="EmptyButton4" type="Button" parent="UI/GridContainer"]
+visible = false
 custom_minimum_size = Vector2(32, 13)
 layout_mode = 2
 
 [node name="EmptyButton5" type="Button" parent="UI/GridContainer"]
+visible = false
 custom_minimum_size = Vector2(32, 13)
 layout_mode = 2
 
@@ -132,6 +209,7 @@ pivot_offset = Vector2(42, 9)
 script = ExtResource("5_r8o1q")
 
 [node name="HPLabelNum" type="Label" parent="UI/StatsPanel"]
+self_modulate = Color(0, 1, 0, 1)
 layout_mode = 2
 offset_left = 5.0
 offset_top = 4.0

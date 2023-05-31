@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://230twttfppue"]
+[gd_scene load_steps=9 format=3 uid="uid://230twttfppue"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_e3e5u"]
 [ext_resource type="Texture2D" uid="uid://hvf865mctntv" path="res://MobileRPG Resources/Images/Rat.png" id="2_gatbx"]
+[ext_resource type="AudioStream" uid="uid://bskmhnqykwptd" path="res://MobileRPG Resources/DigitalHit.mp3" id="3_oxgnd"]
 
 [sub_resource type="Animation" id="Animation_iy2pm"]
 resource_name = "Attack"
@@ -170,5 +171,8 @@ vertical_alignment = 1
 libraries = {
 "": SubResource("AnimationLibrary_jmwpu")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_oxgnd")
 
 [connection signal="attack" from="." to="." method="_on_attack"]

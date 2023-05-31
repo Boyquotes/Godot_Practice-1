@@ -3,6 +3,8 @@ extends Node
 @onready var player = $PlayerStats
 @onready var enemy = $Enemy
 
+@onready var audioPlayer = $AudioStreamPlayer2D
+
 @onready var swordButton = $UI/GridContainer/SwordButton
 @onready var healButton = $UI/GridContainer/HealButton
 @onready var blockButton = $UI/GridContainer/BlockButton
@@ -29,6 +31,7 @@ signal end_turn
 func _on_sword_button_pressed():
 	if (enemy != null):
 		enemy.hp -= player.attack_value
+		audioPlayer.play()
 		process_action_cost(player.sword_ap_cost, player.sword_mp_cost)
 
 func _on_heal_button_pressed():
@@ -44,9 +47,9 @@ func process_action_cost(action_cost, magic_cost):
 	player.mp -= magic_cost
 	
 	if (player.ap <= 0):
-		swordButton.disabled = true
-		healButton.disabled = true
-		blockButton.disabled = true
+		swordButton.visible = false
+		healButton.visible = false
+		blockButton.visible = false
 		end_turn.emit()
 	
 	for action in ActionList:
@@ -59,12 +62,15 @@ func _on_enemy_end_turn():
 	player.is_blocking = false
 	player.ap = player.max_ap
 	
+	swordButton.visible = true
+	healButton.visible = true
+	blockButton.visible = true
 	swordButton.disabled = false
 	healButton.disabled = false
 	blockButton.disabled = false
 
 func _on_enemy_died():
-	swordButton.disabled = true
-	healButton.disabled = true
-	blockButton.disabled = true
+	swordButton.visible = false
+	healButton.visible = false
+	blockButton.visible = false
 	enemy = null
